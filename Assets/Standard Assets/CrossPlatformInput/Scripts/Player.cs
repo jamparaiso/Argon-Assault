@@ -31,14 +31,6 @@ public class Player : MonoBehaviour
         MoveShip();
     }
 
-    private void PitchYawRoll()
-    {
-        float pitch = transform.localPosition.y * pitchFactor + yThrow * controlPitchFactor;
-        float yaw = transform.localPosition.x + yawFactor;
-        float roll = xThrow * controlRollFactor;
-        transform.localRotation = Quaternion.Euler(pitch,yaw,roll);
-    }
-
     private void MoveShip()
     {
         float rawYpos = MoveUpDown();
@@ -49,7 +41,13 @@ public class Player : MonoBehaviour
 
         transform.localPosition = new Vector3(rawXPos, rawYpos, transform.localPosition.z);
     }
-
+    private void PitchYawRoll()
+    {
+        float pitch = transform.localPosition.y * pitchFactor + yThrow * controlPitchFactor;
+        float yaw = transform.localPosition.x + yawFactor;
+        float roll = xThrow * controlRollFactor;
+        transform.localRotation = Quaternion.Euler(pitch,yaw,roll);
+    }
     private float MoveSideWays()
     {
         xThrow = CrossPlatformInputManager.GetAxis("Horizontal"); // initialize multiplatform control for x axis
