@@ -5,11 +5,12 @@ using UnityStandardAssets.CrossPlatformInput;
 public class Player : MonoBehaviour
   
 {
+    [SerializeField] float zPos = 45f;
     [Tooltip("in ms^-1")][SerializeField] float speed = 50f;
     [Tooltip("x Screen Limit")][SerializeField] float xRange = 27f;
     [Tooltip("y Screen Limit")][SerializeField] float yRange = 16f;
 
-    [SerializeField] float pitchFactor = -1.5f;
+    [SerializeField] float pitchFactor = -1f;
     [SerializeField] float controlPitchFactor = -18f;
 
     [SerializeField] float yawFactor = 1.6f;
@@ -33,13 +34,13 @@ public class Player : MonoBehaviour
 
     private void MoveShip()
     {
-        float rawYpos = MoveUpDown();
+        float yPos = MoveUpDown();
 
-        float rawXPos = MoveSideWays();
+        float xPos = MoveSideWays();
 
         PitchYawRoll();
 
-        transform.localPosition = new Vector3(rawXPos, rawYpos, transform.localPosition.z);
+        transform.localPosition = new Vector3(xPos, yPos, zPos);
     }
     private void PitchYawRoll()
     {
@@ -53,27 +54,27 @@ public class Player : MonoBehaviour
         xThrow = CrossPlatformInputManager.GetAxis("Horizontal"); // initialize multiplatform control for x axis
         float xPos = transform.localPosition.x;
         float xOffset = Offset(xThrow, speed);
-        float rawXPos = MoveLmit(xPos, xOffset, xRange);
-        return rawXPos;
+        float clampedXPos = MoveLimit(xPos, xOffset, xRange);
+        return clampedXPos;
     }
 
     private float MoveUpDown()
     {
-        yThrow = CrossPlatformInputManager.GetAxis("Vertical");
+        yThrow = CrossPlatformInputManager.GetAxis("Vertical"); // initialize multiplatform control for y axis
         float yPos = transform.localPosition.y;
         float yOffset = Offset(yThrow, speed);
-        float rawYpos = MoveLmit(yPos, yOffset,yRange);
-        return rawYpos;
+        float clampedYPos = MoveLimit(yPos, yOffset,yRange);
+        return clampedYPos;
     }
 
-    private float MoveLmit(float pos, float offset, float range)
+    private float MoveLimit(float pos, float offset, float range)
     {
-        return Mathf.Clamp((pos + offset), -range, range);
+        return Mathf.Clamp((pos + offset), -range, range); // checks if the proposed movement is in range of the screen 
     }
 
-    private float Offset(float throwSpeed,float speed)
+    private float Offset(float throwValue,float speed)
     {
-        float offSet = throwSpeed * speed * Time.deltaTime;
+        float offSet = throwValue * speed * Time.deltaTime; // make the movement calculations fps dependent
         return offSet;
     }
 }
