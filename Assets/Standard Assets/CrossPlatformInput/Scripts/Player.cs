@@ -6,16 +6,14 @@ public class Player : MonoBehaviour
   
 {
     [Tooltip("in ms^-1")][SerializeField] float speed = 50f;
-    [Tooltip("x Screen Limit")][SerializeField] float xRange = 17f;
-    [Tooltip("y Screen Limit")][SerializeField] float yRange = 12f;
+    [Tooltip("x Screen Limit")][SerializeField] float xRange = 27f;
+    [Tooltip("y Screen Limit")][SerializeField] float yRange = 16f;
 
     [SerializeField] float pitchFactor = -1.5f;
     [SerializeField] float controlPitchFactor = -18f;
 
     [SerializeField] float yawFactor = 1.6f;
-    //[SerializeField] float controlYawFactor = 8f;
 
-    //[SerializeField] float rollFactor = 1.5f;
     [SerializeField] float controlRollFactor = -30f;
 
 
@@ -31,15 +29,12 @@ public class Player : MonoBehaviour
     void Update()
     {
         MoveShip();
-        RotateShip();
     }
 
-    private void RotateShip()
+    private void PitchYawRoll()
     {
         float pitch = transform.localPosition.y * pitchFactor + yThrow * controlPitchFactor;
-        //float yaw = transform.localPosition.x * yawFactor + xThrow * controlYawFactor;
         float yaw = transform.localPosition.x + yawFactor;
-        //float roll = transform.localPosition.x * rollFactor + xThrow * controlRollFactor;
         float roll = xThrow * controlRollFactor;
         transform.localRotation = Quaternion.Euler(pitch,yaw,roll);
     }
@@ -50,6 +45,8 @@ public class Player : MonoBehaviour
 
         float rawXPos = MoveSideWays();
 
+        PitchYawRoll();
+
         transform.localPosition = new Vector3(rawXPos, rawYpos, transform.localPosition.z);
     }
 
@@ -58,7 +55,7 @@ public class Player : MonoBehaviour
         xThrow = CrossPlatformInputManager.GetAxis("Horizontal"); // initialize multiplatform control for x axis
         float xPos = transform.localPosition.x;
         float xOffset = Offset(xThrow, speed);
-        float rawXPos = ScreenLimit(xPos, xOffset, xRange);
+        float rawXPos = MoveLmit(xPos, xOffset, xRange);
         return rawXPos;
     }
 
@@ -67,11 +64,11 @@ public class Player : MonoBehaviour
         yThrow = CrossPlatformInputManager.GetAxis("Vertical");
         float yPos = transform.localPosition.y;
         float yOffset = Offset(yThrow, speed);
-        float rawYpos = ScreenLimit(yPos, yOffset,yRange);
+        float rawYpos = MoveLmit(yPos, yOffset,yRange);
         return rawYpos;
     }
 
-    private float ScreenLimit(float pos, float offset, float range)
+    private float MoveLmit(float pos, float offset, float range)
     {
         return Mathf.Clamp((pos + offset), -range, range);
     }
