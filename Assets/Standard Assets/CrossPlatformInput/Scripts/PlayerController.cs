@@ -1,14 +1,16 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityStandardAssets.CrossPlatformInput;
 
-public class Player : MonoBehaviour
+[DisallowMultipleComponent]
+public class PlayerController : MonoBehaviour
   
 {
-    [SerializeField] float zPos = 45f;
+
+    [Header("General")]
     [Tooltip("in ms^-1")][SerializeField] float speed = 50f;
     [Tooltip("x Screen Limit")][SerializeField] float xRange = 27f;
     [Tooltip("y Screen Limit")][SerializeField] float yRange = 16f;
+    [SerializeField] float zPos = 45f;
 
     [SerializeField] float pitchFactor = -1f;
     [SerializeField] float controlPitchFactor = -18f;
@@ -16,6 +18,8 @@ public class Player : MonoBehaviour
     [SerializeField] float yawFactor = 1.6f;
 
     [SerializeField] float controlRollFactor = -30f;
+
+    bool disableControl = false;
 
 
     float xThrow, yThrow;
@@ -29,7 +33,16 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        MoveShip();
+        if (!disableControl)
+        {
+            MoveShip();
+        }
+
+    }
+
+    private void PlayerIsHit(bool isHit) //called by reference string
+    {
+        disableControl = isHit;
     }
 
     private void MoveShip()
