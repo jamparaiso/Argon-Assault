@@ -37,7 +37,6 @@ public class PlayerController : MonoBehaviour
         {
             MoveShip();
         }
-
     }
 
     private void PlayerIsHit(bool isHit) //called by reference string

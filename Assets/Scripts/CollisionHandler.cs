@@ -16,8 +16,8 @@ public class CollisionHandler : MonoBehaviour
     private void playerHitHandler()
     {
         print("Im hit!");
-        SendMessage("PlayerIsHit", true);
-        Invoke("ReloadScene", levelLoadDelay);
+        SendMessage("PlayerIsHit", true); //invoke method on other script that is attached to the object
+        Invoke("ReloadScene", levelLoadDelay); //calls method on the class on specified time
     }
 
     private void ReloadScene() // called by reference string
