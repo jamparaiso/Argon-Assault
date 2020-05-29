@@ -6,12 +6,16 @@ public class EnemyCollisionHandler : MonoBehaviour
 {
     [SerializeField] GameObject deathFX;
     [SerializeField] Transform parent;
+    [SerializeField] int scorePerHit = 12; //default score per hit, can be changed on gameobject
+
+    ScoreBoard scoreBoard; //reference to ScoreBoard script
 
     GameObject fxHolder;
 
     void Start()
     {
-        addNonTriggerBoxCollider(); 
+        addNonTriggerBoxCollider();
+        scoreBoard = FindObjectOfType<ScoreBoard>(); //find and place the ScoreBoard script to placeholder
     }
 
     private void addNonTriggerBoxCollider()
@@ -22,8 +26,14 @@ public class EnemyCollisionHandler : MonoBehaviour
 
     private void OnParticleCollision(GameObject other)
     {
-        fxHolder = Instantiate(deathFX,transform.position,Quaternion.identity);
-        fxHolder.transform.parent = parent;
+        scoreBoard.ScoreHit(scorePerHit);
+        GenerateDeathFX();
         Destroy(gameObject);
+    }
+
+    private void GenerateDeathFX()
+    {
+        fxHolder = Instantiate(deathFX, transform.position, Quaternion.identity);
+        fxHolder.transform.parent = parent;
     }
 }
