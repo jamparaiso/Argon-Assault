@@ -22,6 +22,7 @@ public class ScoreBoard : MonoBehaviour
     {
         //change a
         //change b
+        //change c
         score = score + scorePerHit;
         updateScore();
     }
