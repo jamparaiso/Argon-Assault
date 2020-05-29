@@ -20,9 +20,6 @@ public class ScoreBoard : MonoBehaviour
 
     public void ScoreHit(int scorePerHit)
     {
-        //change a
-        //change b
-        //change c
         score = score + scorePerHit;
         updateScore();
     }
