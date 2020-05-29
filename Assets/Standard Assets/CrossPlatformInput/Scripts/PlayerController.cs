@@ -19,6 +19,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] float yawFactor = 1.6f;
 
     [SerializeField] float controlRollFactor = -30f;
+    [SerializeField] GameObject[] guns;
 
     bool disableControl = false;
 
@@ -37,6 +38,32 @@ public class PlayerController : MonoBehaviour
         if (!disableControl)
         {
             MoveShip();
+            gunHandler();
+        }
+    }
+
+    private void gunHandler()
+    {
+        bool fireGun = CrossPlatformInputManager.GetButton("Fire1");
+
+        triggerFire(fireGun);
+    }
+
+    private void triggerFire(bool active)
+    {
+        if (active)
+        {
+            foreach (GameObject gun in guns)
+            {
+                gun.SetActive(true);
+            }
+        }
+        else
+        {
+            foreach (GameObject gun in guns)
+            {
+                gun.SetActive(false);
+            }
         }
     }
 

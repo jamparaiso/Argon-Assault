@@ -4,9 +4,11 @@ using UnityEngine.SceneManagement;
 
 public class splashScreen : MonoBehaviour
 {
+    [SerializeField] float screenTransition = 2f;
+
     void Start()
     {
-        Invoke("LoadScene", 5);
+        Invoke("LoadScene", screenTransition);
     }
 
     private void LoadScene()
