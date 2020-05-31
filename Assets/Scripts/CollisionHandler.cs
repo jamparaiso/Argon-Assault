@@ -9,13 +9,13 @@ public class CollisionHandler : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        deathFx.SetActive(true);
         playerHitHandler();
     }
 
     private void playerHitHandler()
     {
         print("Im hit!");
+        deathFx.SetActive(true);
         SendMessage("PlayerIsHit", true); //invoke method on other script that is attached to the object
         Invoke("ReloadScene", levelLoadDelay); //calls method on the class on specified time
     }

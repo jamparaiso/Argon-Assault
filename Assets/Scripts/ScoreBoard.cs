@@ -9,7 +9,7 @@ public class ScoreBoard : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        scoreText = GetComponent<Text>();
+        scoreText = GetComponent<Text>(); // find the text component where the script attached into
         updateScore();
     }
 
@@ -18,7 +18,7 @@ public class ScoreBoard : MonoBehaviour
         scoreText.text = score.ToString();
     }
 
-    public void ScoreHit(int scorePerHit)
+    public void ScoreHit(int scorePerHit)//public method to update the score
     {
         score = score + scorePerHit;
         updateScore();

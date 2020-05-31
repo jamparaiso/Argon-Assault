@@ -6,7 +6,7 @@ public class EnemyCollisionHandler : MonoBehaviour
 {
     [SerializeField] GameObject deathFX;
     [SerializeField] Transform parent;
-    [SerializeField] int scorePerHit = 12; //default score per hit, can be changed on gameobject
+    [SerializeField] int scorePerHit = 12;
     [SerializeField] float enemyHP = 3f;
 
     ScoreBoard scoreBoard; //reference to ScoreBoard script

@@ -3,8 +3,7 @@ using UnityEngine;
 using UnityStandardAssets.CrossPlatformInput;
 
 [DisallowMultipleComponent]
-public class PlayerController : MonoBehaviour
-  
+public class PlayerController : MonoBehaviour 
 {
 
     [Header("General")]
@@ -26,16 +25,11 @@ public class PlayerController : MonoBehaviour
 
     float xThrow, yThrow;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-
-    }
 
     // Update is called once per frame
     void Update()
     {
-        if (!disableControl)
+        if (!disableControl) //check if player is dead
         {
             MoveShip();
             gunHandler();
@@ -55,14 +49,21 @@ public class PlayerController : MonoBehaviour
         {
             foreach (GameObject gun in guns)
             {
-                gun.SetActive(true);
+
+                //gun.SetActive(true);
+                ParticleSystem ps = gun.GetComponentInChildren<ParticleSystem>();
+                var emission = ps.emission;
+                emission.enabled = active;
             }
         }
         else
         {
             foreach (GameObject gun in guns)
             {
-                gun.SetActive(false);
+                //gun.SetActive(false);
+                ParticleSystem ps = gun.GetComponentInChildren<ParticleSystem>();
+                var emission = ps.emission;
+                emission.enabled = active;
             }
         }
     }
@@ -117,4 +118,5 @@ public class PlayerController : MonoBehaviour
         float offSet = throwValue * speed * Time.deltaTime; // make the movement calculations fps dependent
         return offSet;
     }
+
 }

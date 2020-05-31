@@ -217,6 +217,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2d2719ceb64bd8342b805c45fd5b1f05, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  screenTransition: 2
 --- !u!1001 &8596173520053271484
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -228,6 +229,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Music Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 8596173519726947405, guid: b3e3fc08bed707044b220f7af1364b44,
+        type: 3}
+      propertyPath: m_Volume
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 8596173519726947406, guid: b3e3fc08bed707044b220f7af1364b44,
         type: 3}
